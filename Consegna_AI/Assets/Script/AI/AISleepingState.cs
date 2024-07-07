@@ -12,5 +12,6 @@ public class AISleepingState :AIBaseState
     public override void Update(AIStateManager AI)
     {
         //Debug.Log("Sleeping");
+        AI.agent.SetDestination(AI.home.transform.position);
     }
 }

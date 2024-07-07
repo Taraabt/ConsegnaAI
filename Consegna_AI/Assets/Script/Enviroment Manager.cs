@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EnviromentManager : MonoBehaviour
@@ -6,6 +7,11 @@ public class EnviromentManager : MonoBehaviour
     [SerializeField] int treeToSpawn;
     [SerializeField] int mapsize;
     [SerializeField] GameObject tree;
+
+    private void Start()
+    {
+        StartCoroutine(SpawnTree());
+    }
     private void OnEnable()
     {
         TimeManager.ItsNight += CreateTree;
@@ -14,7 +20,6 @@ public class EnviromentManager : MonoBehaviour
     {
         TimeManager.ItsNight += CreateTree;
     }
-
     private void CreateTree()
     {
         StartCoroutine(SpawnTree());
@@ -23,10 +28,16 @@ public class EnviromentManager : MonoBehaviour
     {
         for (int i=0;i<treeToSpawn;i++)
         {
-            Vector3 pos = new Vector3(Random.Range(-mapsize / 2, mapsize / 2) + 0.5f, 0, Random.Range(-mapsize / 2, mapsize / 2) + 0.5f);
+            Vector3 pos = new Vector3(Random.Range(-mapsize / 2, mapsize / 2) + 0.5f, 0, Random.Range(-(mapsize / 2)+1, mapsize / 2) + 0.5f);
             Debug.Log(pos);
-            Instantiate(tree, pos, Quaternion.identity);
-            yield return new WaitForSeconds(1f);
+            GameObject obj=ObjectPooler.Instance.GetObj();
+            if (obj != null )
+            {
+                obj.transform.position = pos;
+                obj.SetActive(true);
+            }
+
+            yield return new WaitForSeconds(0f);
         }
     }
 }

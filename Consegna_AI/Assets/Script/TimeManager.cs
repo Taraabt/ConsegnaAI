@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class TimeManager : MonoBehaviour
 {
-    public static TimeManager instance;
+    public static TimeManager Instance;
     public delegate void NightTime();
     public static event NightTime ItsNight;
     public delegate void DayTime();
@@ -20,13 +20,13 @@ public class TimeManager : MonoBehaviour
     void Update()
     {
         currentTime = currentTime - Time.deltaTime;
-        //Debug.Log(currentTime);
+        Debug.Log(currentTime);
         if (currentTime<=0&&!itsDay)
         {
             itsNight = false;
             itsDay = true;
             currentTime =time;
-            //ItsDay();
+            ItsDay();
         }
         else if(currentTime<=time/24*8&&!itsNight){
             itsNight = true;
