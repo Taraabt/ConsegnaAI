@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class TimeManager : MonoBehaviour
@@ -7,28 +8,33 @@ public class TimeManager : MonoBehaviour
     public static event NightTime ItsNight;
     public delegate void DayTime();
     public static event DayTime ItsDay;
-    bool itsDay = true;
-    bool itsNight = false;
+    bool itsDay;
+    bool itsNight;
+    float currentTime;
 
     [SerializeField]float time;
-    float currentTime;
+    [SerializeField] TMP_Text text;
+    [SerializeField]float multiplyier;
 
     private void Start()
     {
-        currentTime=time;
+        currentTime=0;
+        multiplyier = time / 24;
     }
     void Update()
     {
-        currentTime = currentTime - Time.deltaTime;
-        Debug.Log(currentTime);
-        if (currentTime<=0&&!itsDay)
+        currentTime = currentTime + Time.deltaTime;
+        
+        text.text=Mathf.Round(currentTime/multiplyier).ToString(); 
+
+        if (currentTime>=time/24*8&&!itsDay)
         {
             itsNight = false;
             itsDay = true;
-            currentTime =time;
             ItsDay();
         }
-        else if(currentTime<=time/24*8&&!itsNight){
+        else if(currentTime>=time &&!itsNight){
+            currentTime = 0;
             itsNight = true;
             itsDay = false;
             ItsNight();

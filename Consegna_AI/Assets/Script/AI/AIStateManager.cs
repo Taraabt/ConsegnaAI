@@ -52,7 +52,7 @@ public class AIStateManager : MonoBehaviour
     }
     private void Start()
     {
-        currentState=workingState;
+        currentState=sleepingState;
         currentState.Enter(this);
     }
     void SwitchState(AIBaseState state)
