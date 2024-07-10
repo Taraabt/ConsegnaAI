@@ -10,19 +10,31 @@ public class AIStateManager : MonoBehaviour
     AIBaseState currentState;
     AIWorkingState workingState=new AIWorkingState();
     AISleepingState sleepingState = new AISleepingState();
+    AIThirstState thirstState = new AIThirstState();
 
     public NavMeshAgent agent;
     public float chopTime;
     public bool isChopping=false;
     public GameObject home;
+    public GameObject lake;
 
     private void OnEnable()
     {
+        BarManager.GoWork += BackToWork;
+        BarManager.ImThirst += GoDrink;
         TimeManager.ItsNight += GoToSleep;
         TimeManager.ItsDay += GoToWork;
     }
+
+    private void BackToWork()
+    {
+        SwitchState(workingState);
+    }
+
     private void OnDisable()
     {
+        BarManager.GoWork -= BackToWork;
+        BarManager.ImThirst -= GoDrink;
         TimeManager.ItsNight -= GoToSleep;
         TimeManager.ItsDay -= GoToWork;
     }
@@ -44,7 +56,7 @@ public class AIStateManager : MonoBehaviour
     }
     private void GoDrink()
     {
-        SwitchState(sleepingState);
+        SwitchState(thirstState);
     }
     private void GoEat()
     {

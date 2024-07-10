@@ -27,13 +27,14 @@ public class TimeManager : MonoBehaviour
         
         text.text=Mathf.Round(currentTime/multiplyier).ToString(); 
 
+
         if (currentTime>=time/24*8&&!itsDay)
         {
             itsNight = false;
             itsDay = true;
             ItsDay();
         }
-        else if(currentTime>=time &&!itsNight){
+        else if(currentTime>=time/24*23 &&!itsNight){
             currentTime = 0;
             itsNight = true;
             itsDay = false;

@@ -1,12 +1,17 @@
 using UnityEngine;
 using UnityEngine.UI;
+using static TimeManager;
 
-public class HungerBarManager : MonoBehaviour
+public class BarManager : MonoBehaviour
 {
-    public static HungerBarManager instance;
+    public static BarManager instance;
     public Image hungerBar;
     public float hunger = 100f;
     public float currentHunger;
+    public delegate void Thirsty();
+    public static event Thirsty ImThirst;
+    public delegate void ItsOk();
+    public static event ItsOk GoWork;
 
     private void Awake()
     {
@@ -24,10 +29,22 @@ public class HungerBarManager : MonoBehaviour
         currentHunger -= value;
         UpdateHungerBar();
     }
+    public void LessHungry(float value)
+    {
+        currentHunger += value;
+        UpdateHungerBar();
+    }
 
     void UpdateHungerBar()
     {
-        float healthPercentage = currentHunger / hunger;
-        hungerBar.fillAmount = healthPercentage;
+        float hungerPercentage = currentHunger / hunger;
+        hungerBar.fillAmount = hungerPercentage;
+        //Debug.Log(hungerPercentage);
+        if (hungerPercentage<0.25) {
+            ImThirst();
+        }else if (hungerPercentage > 1)
+        {
+            GoWork();
+        }
     }
 }

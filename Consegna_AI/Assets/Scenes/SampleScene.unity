@@ -804,7 +804,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Hunger
+  m_text: Tirst
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1119,6 +1119,7 @@ GameObject:
   - component: {fileID: 1181689116}
   - component: {fileID: 1181689115}
   - component: {fileID: 1181689114}
+  - component: {fileID: 1181689117}
   m_Layer: 0
   m_Name: Lake
   m_TagString: Untagged
@@ -1213,6 +1214,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1181689112}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!208 &1181689117
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1181689112}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 5, y: 0.00001, z: 5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0.1, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &1235047878
 GameObject:
   m_ObjectHideFlags: 0
@@ -1596,6 +1613,7 @@ MonoBehaviour:
   chopTime: 2
   isChopping: 0
   home: {fileID: 617547453}
+  lake: {fileID: 1181689112}
 --- !u!195 &1467104665
 NavMeshAgent:
   m_ObjectHideFlags: 0
