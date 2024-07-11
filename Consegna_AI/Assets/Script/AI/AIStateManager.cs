@@ -44,6 +44,7 @@ public class AIStateManager : MonoBehaviour
         ObjectPooler.Instance.activeTree[i].SetActive(false);
         ObjectPooler.Instance.activeTree.Remove(ObjectPooler.Instance.activeTree[i]);
         isChopping = false;
+        agent.SetDestination(home.transform.position);
     }
     private void GoToSleep()
     {
@@ -52,7 +53,7 @@ public class AIStateManager : MonoBehaviour
 
     private void GoToWork()
     {
-        SwitchState(workingState);
+        SwitchState(workingState);       
     }
     private void GoDrink()
     {
@@ -69,6 +70,10 @@ public class AIStateManager : MonoBehaviour
     }
     void SwitchState(AIBaseState state)
     {
+        if(TimeManager.Instance.itsNight&&state!=sleepingState)
+        {
+            return;
+        }
         currentState = state;
         state.Enter(this);  
     }

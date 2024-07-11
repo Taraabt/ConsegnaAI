@@ -5,9 +5,9 @@ using static TimeManager;
 public class BarManager : MonoBehaviour
 {
     public static BarManager instance;
-    public Image hungerBar;
-    public float hunger = 100f;
-    public float currentHunger;
+    public Image thirstBar;
+    public float thirst = 100f;
+    public float currentThirst;
     public delegate void Thirsty();
     public static event Thirsty ImThirst;
     public delegate void ItsOk();
@@ -20,31 +20,32 @@ public class BarManager : MonoBehaviour
     }
     void Start()
     {
-        currentHunger = hunger;
-        UpdateHungerBar();
+        currentThirst = thirst;
+        UpdateThirstBar();
     }
 
-    public void MoreHungry(float value)
+    public void MoreThirst(float value)
     {
-        currentHunger -= value;
-        UpdateHungerBar();
+        currentThirst -= value;
+        UpdateThirstBar();
     }
-    public void LessHungry(float value)
+    public void LessThirst(float value)
     {
-        currentHunger += value;
-        UpdateHungerBar();
+        currentThirst += value;
+        UpdateThirstBar();
     }
 
-    void UpdateHungerBar()
+    void UpdateThirstBar()
     {
-        float hungerPercentage = currentHunger / hunger;
-        hungerBar.fillAmount = hungerPercentage;
+        float thirstPercentage = currentThirst / thirst;
+        thirstBar.fillAmount = thirstPercentage;
         //Debug.Log(hungerPercentage);
-        if (hungerPercentage<0.25) {
+        if (thirstPercentage<0.25) {
             ImThirst();
-        }else if (hungerPercentage > 1)
-        {
+        }else if (thirstPercentage > 1)
+        {           
             GoWork();
         }
     }
+
 }

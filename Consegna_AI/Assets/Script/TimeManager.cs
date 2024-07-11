@@ -8,14 +8,20 @@ public class TimeManager : MonoBehaviour
     public static event NightTime ItsNight;
     public delegate void DayTime();
     public static event DayTime ItsDay;
-    bool itsDay;
-    bool itsNight;
+    public bool itsDay;
+    public bool itsNight;
     float currentTime;
 
     [SerializeField]float time;
     [SerializeField] TMP_Text text;
     [SerializeField]float multiplyier;
 
+
+    private void Awake()
+    {
+        if (Instance == null)
+            Instance = this;
+    }
     private void Start()
     {
         currentTime=0;

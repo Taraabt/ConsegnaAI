@@ -13,9 +13,5 @@ public class AISleepingState :AIBaseState
     {
         Debug.Log("Sleeping");
         AI.agent.SetDestination(AI.home.transform.position);
-        if (Vector3.Distance(AI.transform.position,AI.home.transform.position)>=0.5f)
-        {
-            BarManager.instance.MoreHungry(0.01f);
-        }
     }
 }

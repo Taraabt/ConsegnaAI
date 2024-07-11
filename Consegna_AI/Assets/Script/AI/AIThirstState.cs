@@ -12,14 +12,9 @@ public class AIThirstState : AIBaseState
     public override void Update(AIStateManager AI)
     {
         Debug.Log("Thirst");
-        Debug.Log(Vector3.Distance(AI.transform.position, AI.lake.transform.position));
-        if(Vector3.Distance(AI.transform.position,AI.lake.transform.position)<=7)
+        if(Vector3.Distance(AI.transform.position,AI.lake.transform.position)<=6)
         {
-            BarManager.instance.LessHungry(0.02f);
-        }
-        else
-        {
-            BarManager.instance.MoreHungry(0.01f);
+            BarManager.instance.LessThirst(0.05f);
         }
     }
 }
