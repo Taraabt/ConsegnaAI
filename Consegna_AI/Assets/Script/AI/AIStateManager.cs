@@ -11,17 +11,20 @@ public class AIStateManager : MonoBehaviour
     AIWorkingState workingState=new AIWorkingState();
     AISleepingState sleepingState = new AISleepingState();
     AIThirstState thirstState = new AIThirstState();
+    AIHungerState hungerState=new AIHungerState();
 
     public NavMeshAgent agent;
     public float chopTime;
     public bool isChopping=false;
     public GameObject home;
     public GameObject lake;
+    public GameObject tree;
 
     private void OnEnable()
     {
         BarManager.GoWork += BackToWork;
         BarManager.ImThirst += GoDrink;
+        BarManager.ImHungry += GoEat;
         TimeManager.ItsNight += GoToSleep;
         TimeManager.ItsDay += GoToWork;
     }
@@ -35,6 +38,7 @@ public class AIStateManager : MonoBehaviour
     {
         BarManager.GoWork -= BackToWork;
         BarManager.ImThirst -= GoDrink;
+        BarManager.ImHungry -= GoEat;
         TimeManager.ItsNight -= GoToSleep;
         TimeManager.ItsDay -= GoToWork;
     }
@@ -43,6 +47,7 @@ public class AIStateManager : MonoBehaviour
         yield return new WaitForSeconds(chopTime);
         ObjectPooler.Instance.activeTree[i].SetActive(false);
         ObjectPooler.Instance.activeTree.Remove(ObjectPooler.Instance.activeTree[i]);
+        tree.SetActive(true);
         isChopping = false;
         agent.SetDestination(home.transform.position);
     }
@@ -51,7 +56,7 @@ public class AIStateManager : MonoBehaviour
         SwitchState(sleepingState);
     }
 
-    private void GoToWork()
+    public void GoToWork()
     {
         SwitchState(workingState);       
     }
@@ -61,14 +66,14 @@ public class AIStateManager : MonoBehaviour
     }
     private void GoEat()
     {
-        SwitchState(sleepingState);
+        SwitchState(hungerState);
     }
     private void Start()
     {
         currentState=sleepingState;
         currentState.Enter(this);
     }
-    void SwitchState(AIBaseState state)
+    public void SwitchState(AIBaseState state)
     {
         if(TimeManager.Instance.itsNight&&state!=sleepingState)
         {

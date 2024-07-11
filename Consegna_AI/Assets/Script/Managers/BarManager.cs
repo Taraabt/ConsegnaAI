@@ -8,8 +8,14 @@ public class BarManager : MonoBehaviour
     public Image thirstBar;
     public float thirst = 100f;
     public float currentThirst;
+    public Image hungerBar;
+    public float hunger = 100f;
+    public float currentHunger;
+
     public delegate void Thirsty();
     public static event Thirsty ImThirst;
+    public delegate void Hungry();
+    public static event Hungry ImHungry;
     public delegate void ItsOk();
     public static event ItsOk GoWork;
 
@@ -20,8 +26,10 @@ public class BarManager : MonoBehaviour
     }
     void Start()
     {
+        currentHunger = hunger;
         currentThirst = thirst;
         UpdateThirstBar();
+        UpdateHungerBar();
     }
 
     public void MoreThirst(float value)
@@ -29,10 +37,20 @@ public class BarManager : MonoBehaviour
         currentThirst -= value;
         UpdateThirstBar();
     }
+    public void MoreHunger(float value)
+    {
+        currentHunger -= value;
+        UpdateHungerBar();
+    }
     public void LessThirst(float value)
     {
         currentThirst += value;
         UpdateThirstBar();
+    }
+    public void LessHunger(float value)
+    {
+        currentHunger += value;
+        UpdateHungerBar();
     }
 
     void UpdateThirstBar()
@@ -44,6 +62,20 @@ public class BarManager : MonoBehaviour
             ImThirst();
         }else if (thirstPercentage > 1)
         {           
+            GoWork();
+        }
+    }
+    void UpdateHungerBar()
+    {
+        float hungerPercentage = currentHunger / hunger;
+        hungerBar.fillAmount = hungerPercentage;
+        //Debug.Log(hungerPercentage);
+        if (hungerPercentage < 0.25)
+        {
+            ImHungry();
+        }
+        else if (hungerPercentage > 1)
+        {
             GoWork();
         }
     }
