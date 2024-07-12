@@ -11,9 +11,9 @@ public class AIWorkingState : AIBaseState
     public override void Update(AIStateManager AI)
     {
         Debug.Log("Work");
-        BarManager.instance.MoreThirst(0.007f);
-        BarManager.instance.MoreHunger(0.005f);
-        if (Vector3.Distance(AI.agent.transform.position,AI.home.transform.position)<=1)
+        BarManager.instance.MoreThirst(0.009f);
+        BarManager.instance.MoreHunger(0.007f);
+        if (Vector3.Distance(AI.agent.transform.position,AI.home.transform.position)<=2)
         {
             AI.tree.SetActive(false);
             AI.agent.SetDestination(ObjectPooler.Instance.activeTree[0].transform.position);
